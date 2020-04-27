@@ -1,6 +1,4 @@
-const yelp = require('yelp-fusion');
 export class MapApi {
-
   async getBuisnesses() {
     try {
       let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=40233&type=pharmacy&key=${process.env.API_KEY}`);
@@ -10,7 +8,6 @@ export class MapApi {
       if (response.ok && response.status == 200) {
         jsonifiedResponse = await response.json();
         // console.log(jsonifiedResponse);
-
         jsonifiedResponse.results.forEach(result => {
           if (result.business_status === "OPERATIONAL" && result.opening_hours) {
             openResults.push(result)
@@ -25,8 +22,6 @@ export class MapApi {
       console.log(openResults);
       console.log(closedResults)
       console.log(jsonifiedResponse);
-
-
       return jsonifiedResponse ? openResults : "error";
     } catch (error) {
       console.log(error);
