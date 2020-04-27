@@ -1,0 +1,22 @@
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+  }
+
+  .container {
+    background: #000000;
+    background: -webkit-linear-gradient(bottom, #000000, #B62828);
+    background: -moz-linear-gradient(bottom, #000000, #B62828);
+    background: linear-gradient(to top, #000000, #B62828);;
+    background-repeat: repeat;
+    border-radius: 8px;
+  }
+
+  .safety{
+    color: whitesmoke;
+  }
+
+  body {
+    background-color: black;
+  }
