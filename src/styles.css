@@ -5,18 +5,26 @@
   }
 
   .container {
+    padding: 30px;
     background: #000000;
     background: -webkit-linear-gradient(bottom, #000000, #B62828);
     background: -moz-linear-gradient(bottom, #000000, #B62828);
     background: linear-gradient(to top, #000000, #B62828);;
     background-repeat: repeat;
     border-radius: 8px;
+    margin-top: 15%;
   }
 
-  .safety{
+  #safety {
     color: whitesmoke;
+    font-family: 'Cairo', sans-serif;
+  }
+
+  #user-info {
+    display: none;
   }
 
   body {
     background-color: black;
+    font-family: 'Teko', sans-serif;
   }
