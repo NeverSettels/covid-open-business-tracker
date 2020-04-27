@@ -50,10 +50,13 @@ const sampleResponse = {
   }
 }
 
-$(document).ready(() => {
-  (async () => {
-    let mapApi = new MapApi();
-    const response = await mapApi.getBuisnesses()
-    console.log(response);
-  })()
+$(document).ready((event) => {
+  event.preventDefault();
+  $("#form").submit(() => {
+    (async () => {
+      let mapApi = new MapApi();
+      const response = await mapApi.getBuisnesses()
+      console.log(response);
+    })()
+  });
 });
