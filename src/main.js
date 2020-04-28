@@ -32,13 +32,9 @@ function addMarker(position, map) {
 
 }
 
-
 // Append the 'script' element to 'head'
 document.head.appendChild(script);
 
-// function initMap() {
-
-// }
 $(document).ready(() => {
   // Button for Landing Page
   $("#enter").click(function () {
@@ -64,10 +60,6 @@ $(document).ready(() => {
       console.log(location.geometry.location);
       addMarker(location.geometry.location, myMap);
     })
-
-
-    //addMarker(45.505, -122.2354, myMap);
     $("#output").show();
-    // })();
   });
 });
