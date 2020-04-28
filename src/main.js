@@ -15,22 +15,13 @@ script.async = true;
 
 // Attach your callback function to the `window` object
 window.initMap = function() {
-    // The location of Uluru
     var portland = {lat: 45.5051, lng: -122.6750};
-    // The map, centered at Uluru
     var map = new google.maps.Map(document.getElementById('map'), {zoom: 10, center: portland});
-    // The marker, positioned at Uluru
-    var marker = new google.maps.Marker({position: portland, map: map});
     return map
-    
 };
 function initMap(){
-    // The location of Uluru
     var portland = {lat: 45.5051, lng: -122.6750};
-    // The map, centered at Uluru
     var map = new google.maps.Map(document.getElementById('map'), {zoom: 10, center: portland});
-    // The marker, positioned at Uluru
-    var marker = new google.maps.Marker({position: portland, map: map});
     return map  
 }
 function addMarker(lat,lng,map){
