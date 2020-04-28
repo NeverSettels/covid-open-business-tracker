@@ -7,25 +7,56 @@ export class MapApi {
       let closedResults = [];
       if (response.ok && response.status == 200) {
         jsonifiedResponse = await response.json();
-        // console.log(jsonifiedResponse);
+        //console.log(jsonifiedResponse);
         jsonifiedResponse.results.forEach(result => {
           if (result.business_status === "OPERATIONAL" && result.opening_hours) {
             openResults.push(result)
           } else {
-            closedResults.push(results);
+            closedResults.push(result);
           }
         });
 
       } else {
         jsonifiedResponse = false;
       }
-      console.log(openResults);
-      console.log(closedResults)
-      console.log(jsonifiedResponse);
+      console.log("first", openResults);
+      console.log(jsonifiedResponse.next_page_token)
+      let temp = await this.nextPage(jsonifiedResponse.next_page_token);
+      let added = openResults.concat(temp);
+      console.log('temp', temp);
+
+      console.log("why no concat?", added)
       return jsonifiedResponse ? openResults : "error";
     } catch (error) {
       console.log(error);
       return error;
+    }
+  }
+
+  async nextPage(token) {
+    try {
+      let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=40233&type=pharmacy&pagetoken=${token}&key=${process.env.API_KEY}`
+      console.log(token);
+      let response = await fetch(url);
+      let jsonifiedResponse;
+      let arr = [];
+      console.log(response);
+
+      if (response.ok && response.status == 200) {
+        jsonifiedResponse = await response.json()
+        console.log("inner", jsonifiedResponse);
+        jsonifiedResponse.results.forEach(result => {
+          if (result.business_status === "OPERATIONAL" && result.opening_hours) {
+            console.log(result);
+            arr.push(result)
+          }
+        });
+      } else {
+        jsonifiedResponse = false;
+      }
+      return arr;
+    } catch (error) {
+
     }
   }
 }
@@ -52,3 +83,5 @@ export class MapApi {
 // }).catch(e => {
 //   console.log(e);
 // });
+
+
