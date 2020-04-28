@@ -1,10 +1,7 @@
 .container {
   padding: 30px;
-  background: #000000;
-  background: -webkit-linear-gradient(bottom, #000000, #B62828);
-  background: -moz-linear-gradient(bottom, #000000, #B62828);
-  background: linear-gradient(to top, #000000, #B62828);;
-  background-repeat: repeat;
+  background: rgb(5,5,5);
+  background: linear-gradient(0deg, rgba(5,5,5,1) 0%, rgba(15,15,15,1) 0%, rgba(114,185,199,1) 100%);
   border-radius: 8px;
   margin-top: 15%;
 }
@@ -19,7 +16,7 @@
 }
 
 body {
-  background-color: black;
+  background-color: rgb(24, 22, 22);
   font-family: 'Teko', sans-serif;
 }
 

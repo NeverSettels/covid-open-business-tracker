@@ -14,21 +14,21 @@ script.defer = true;
 script.async = true;
 
 // Attach your callback function to the `window` object
-window.initMap = function() {
-    let portland = {lat: 45.5051, lng: -122.6750};
-    // eslint-disable-next-line
-    let map = new google.maps.Map(document.getElementById('map'), {zoom: 10, center: portland});
-    return map
-};
-function initMap(){
-    let portland = {lat: 45.5051, lng: -122.6750};
-    // eslint-disable-next-line
-    let map = new google.maps.Map(document.getElementById('map'), {zoom: 10, center: portland});
-    return map  
-}
-function addMarker(lat,lng,map){
+window.initMap = function () {
+  let portland = { lat: 45.5051, lng: -122.6750 };
   // eslint-disable-next-line
-  let marker = new google.maps.Marker({position: {lat: lat, lng: lng}, map: map});
+  let map = new google.maps.Map(document.getElementById('map'), { zoom: 10, center: portland });
+  return map
+};
+function initMap() {
+  let portland = { lat: 45.5051, lng: -122.6750 };
+  // eslint-disable-next-line
+  let map = new google.maps.Map(document.getElementById('map'), { zoom: 10, center: portland });
+  return map
+}
+function addMarker(position, map) {
+  // eslint-disable-next-line
+  let marker = new google.maps.Marker({ position: position, map: map });
 
 }
 
@@ -41,36 +41,33 @@ document.head.appendChild(script);
 // }
 $(document).ready(() => {
   // Button for Landing Page
-  $("#enter").click(function() {
+  $("#enter").click(function () {
     $("#user-info").show();
     $("#safety").hide();
   });
-   
+
+  let arr = [];
+
   (async () => {
     let mapApi = new MapApi();
-      const response = await mapApi.getBuisnesses();
-      console.log('can some one screen shot this', response);
+    const response = await mapApi.getBuisnesses();
+    arr = response;
   })();
-    // code for user to "submit" form PSEUDOCODE
-  $("#user-input").submit(function(event) {
+  // code for user to "submit" form PSEUDOCODE
+  $("#user-input").submit(function (event) {
     //(async () => {
-      event.preventDefault();
-      const zipCode = parseInt($("#zip").val());
-      const miles = parseInt($("#miles").val());
-      let myMap = initMap();
-      addMarker(45.505,-122.2354,myMap);
-      $("#output").show();
-   // })();
+    event.preventDefault();
+    const zipCode = parseInt($("#zip").val());
+    const miles = parseInt($("#miles").val());
+    let myMap = initMap();
+    arr.forEach(location => {
+      console.log(location.geometry.location);
+      addMarker(location.geometry.location, myMap);
+    })
+
+
+    //addMarker(45.505, -122.2354, myMap);
+    $("#output").show();
+    // })();
   });
 });
-
-
-// let result = getBusinesses(zipCode, miles);
-      // result list of 25 in an array: 
-      // name path: results[0].name 
-      // address path: results[0].vicinity
-      // phone number path: ?? do we need to include the phone number as a param in our API call?
-      // pin location for map option path: results[0].geometry.location.lat & results[0].geometry.lng 
-      // place id location for map: results[0].place_id
-
-      
