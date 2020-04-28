@@ -20,9 +20,10 @@ module.exports = {
     new UglifyJsPlugin({ sourceMap: true }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Ping Pong',
+      title: 'Covid Map',
       template: './src/index.html',
-      inject: 'body'
+      inject: 'body',
+      apiUrl: `https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&callback=initMap`
     })
   ],
   module: {

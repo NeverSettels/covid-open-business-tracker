@@ -5,18 +5,29 @@ import './styles.css';
 import { MapApi } from './maps-service';
 
 // Create the script tag, set the appropriate attributes
-var script = document.createElement('script');
+// var script = document.createElement('script');
 // script.src = (`https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&callback=initMap`);
-script.defer = true;
-script.async = true;
+// script.defer = true;
+// script.async = true;
 
 // Attach your callback function to the `window` object
-window.initMap = function() {
-  // JS API is loaded and available
-};
+// window.initMap = function() {
+  //   let options = {
+  //     zoom : 8,
+  //     center: {lat:45.5051, lng: -122.6750} // lng must be negative (portland, or)
+  //   }
+
+  //   //new map:
+  //   let map = new google.maps.Map(document.getElementById('map'), options);
+    
+  //   //add marker:
+  //   let marker = new google.maps.Marker({//
+  //     position: {lat: 45.5853 , lng: -122.7645}
+  //   });
+  // }
 
 // Append the 'script' element to 'head'
-document.head.appendChild(script);
+///document.head.appendChild(script);
 
 $(document).ready(() => {
   // Button for Landing Page
@@ -49,19 +60,5 @@ $(document).ready(() => {
       // Map and output functionality
     });
   })();
-  function initMap() {
-
-    let options = {
-      zoom : 8,
-      center: {lat:45.5051, lng: -122.6750} // lng must be negative (portland, or)
-    }
-
-    //new map:
-    let map = new google.maps.Map(document.getElementById('map'), options);
-    
-    //add marker:
-    var marker = new google.maps.Marker({
-      position: {lat: 45.5853 , lng: -122.7645}
-    })
-  }
+  
 });
