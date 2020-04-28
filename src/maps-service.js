@@ -1,7 +1,7 @@
 export class MapApi {
-  async getBuisnesses() {
+  async getBuisnesses(type) {
     try {
-      let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=40233&type=pharmacy&key=${process.env.API_KEY}`);
+      let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=40233&type=${type}&key=${process.env.API_KEY}`);
       let jsonifiedResponse;
       let openResults = [];
       let closedResults = [];
@@ -19,13 +19,13 @@ export class MapApi {
       } else {
         jsonifiedResponse = false;
       }
-      console.log("first", openResults);
-      console.log(jsonifiedResponse.next_page_token)
-      let temp = await this.nextPage(jsonifiedResponse.next_page_token);
-      let added = openResults.concat(temp);
-      console.log('temp', temp);
+      // console.log("first", openResults);
+      // console.log(jsonifiedResponse.next_page_token)
+      // let temp = await this.nextPage(jsonifiedResponse.next_page_token);
+      // let added = openResults.concat(temp);
+      // console.log('temp', temp);
 
-      console.log("why no concat?", added)
+      // console.log("why no concat?", added)
       return jsonifiedResponse ? openResults : "error";
     } catch (error) {
       console.log(error);
@@ -44,7 +44,6 @@ export class MapApi {
 
       if (response.ok && response.status == 200) {
         jsonifiedResponse = await response.json()
-        console.log("inner", jsonifiedResponse);
         jsonifiedResponse.results.forEach(result => {
           if (result.business_status === "OPERATIONAL" && result.opening_hours) {
             console.log(result);

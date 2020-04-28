@@ -53,7 +53,7 @@ const sampleResponse = {
 $(document).ready(() => {
   (async () => {
     let mapApi = new MapApi();
-    const response = await mapApi.getBuisnesses()
-    //console.log(response);
+    const response = await mapApi.getBuisnesses('restaurant')
+    console.log(response);
   })()
 });
