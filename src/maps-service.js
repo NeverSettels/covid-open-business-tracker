@@ -30,6 +30,7 @@ export class MapApi {
   }
 }
 
+
 // Place holder for Yelp Fusion's API Key. Grab them
 // from https://www.yelp.com/developers/v3/manage_app
 //const apiKey = '<YOUR_API_KEY>';

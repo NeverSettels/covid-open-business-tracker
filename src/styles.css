@@ -1,48 +1,50 @@
-  .container {
-    padding: 30px;
-    background: #000000;
-    background: -webkit-linear-gradient(bottom, #000000, #B62828);
-    background: -moz-linear-gradient(bottom, #000000, #B62828);
-    background: linear-gradient(to top, #000000, #B62828);;
-    background-repeat: repeat;
-    border-radius: 8px;
-    margin-top: 15%;
-  }
+.container {
+  padding: 30px;
+  background: #000000;
+  background: -webkit-linear-gradient(bottom, #000000, #B62828);
+  background: -moz-linear-gradient(bottom, #000000, #B62828);
+  background: linear-gradient(to top, #000000, #B62828);;
+  background-repeat: repeat;
+  border-radius: 8px;
+  margin-top: 15%;
+}
 
-  #safety {
-    color: whitesmoke;
-    font-family: 'Cairo', sans-serif;
-  }
+#safety {
+  color: whitesmoke;
+  font-family: 'Cairo', sans-serif;
+}
 
-  #user-info {
-    display: none;
-  }
+#user-info {
+  display: none;
+}
 
-  body {
-    background-color: black;
-    font-family: 'Teko', sans-serif;
-  }
+body {
+  background-color: black;
+  font-family: 'Teko', sans-serif;
+}
 
-  #output {
-    display: none;
-  }
+#output {
+  display: none;
+}
 
+#map {
+  width: 100%;
+  height: 400px;
+  background-color: grey;
+}
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 480px)
+and (-webkit-min-device-pixel-ratio: 2) {
   #map {
-    height: 100%;
+    height: 50%;
   }
-  /* Optional: Makes the sample page fill the window. */
-  /* html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  } */
-
-  @media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2) {
-    #map {
-      height: 50%;
-    }
-  }
- 
+}
