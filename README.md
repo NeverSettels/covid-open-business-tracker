@@ -15,7 +15,7 @@ _This program will allow a user to input their location and receive information 
 3. Step three: Clone this repository.
 4. Step four: Open the repository.
 5. Step Five: Retrieve your own api key from  [Google](https://developers.google.com/maps/gmp-get-started) OR contact our team to retrieve IP address authentication to receive access to our API key. 
-_Note: Google API rescritions allows us to rescrit our KEY to IP Addresses & HTTP websites. Which is why it is hard coded into our application and not hidden with a .env file._ 
+_Note: Google API rescritions allows us to restrict our KEY to IP Addresses & HTTP websites. Which is why it is hard coded into our application and not hidden with a .env file._ 
 6. Step seven: Run npm run start on your terminal. 
 7. Step Eight: Enjoy site. 
 

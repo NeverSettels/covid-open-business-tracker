@@ -1,7 +1,7 @@
 export class MapApi {
-  async getBuisnesses(type) {
+  async getBuisnesses() {
     try {
-      let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=40233&type=${type}&key=${process.env.API_KEY}`);
+      let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=40233&key=${process.env.API_KEY}`);
       let jsonifiedResponse;
       let openResults = [];
       let closedResults = [];
@@ -49,7 +49,8 @@ export class MapApi {
       }
       return arr;
     } catch (error) {
-
+      console.log(error);
+      return error;
     }
   }
 }
