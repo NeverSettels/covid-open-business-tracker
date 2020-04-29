@@ -1,7 +1,7 @@
 export class MapApi {
   async getBuisnesses() {
     try {
-      let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=40233&key=${process.env.API_KEY}`);
+      let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=40233&key=AIzaSyCSbUg4uB4qOCYnlMNg25JkcZcs8O4si0I`);
       let jsonifiedResponse;
       let openResults = [];
       let closedResults = [];
@@ -15,7 +15,6 @@ export class MapApi {
             closedResults.push(result);
           }
         });
-
       } else {
         jsonifiedResponse = false;
       }
@@ -29,7 +28,7 @@ export class MapApi {
 
   async nextPage(token) {
     try {
-      let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=40233&type=pharmacy&pagetoken=${token}&key=${process.env.API_KEY}`
+      let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=40233&type=pharmacy&pagetoken=${token}&key=AIzaSyCSbUg4uB4qOCYnlMNg25JkcZcs8O4si0I`
       console.log(token);
       let response = await fetch(url);
       let jsonifiedResponse;
@@ -54,7 +53,6 @@ export class MapApi {
     }
   }
 }
-
 
 // Place holder for Yelp Fusion's API Key. Grab them
 // from https://www.yelp.com/developers/v3/manage_app
