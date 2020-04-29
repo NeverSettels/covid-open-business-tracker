@@ -18,7 +18,7 @@ window.initMap = function () {
   let portland = { lat: 45.5051, lng: -122.6750 };
   // eslint-disable-next-line
   let map = new google.maps.Map(document.getElementById('map'), { zoom: 10, center: portland  });
-  return map
+  return map;
 };
 function initMap(lat, lng) {
   let location = { lat, lng };
@@ -103,7 +103,7 @@ function initMap(lat, lng) {
       stylers: [{color: '#17263c'}]
     }
   ] });
-  return map
+  return map;
 }
 function addMarker(position, map) {
   // eslint-disable-next-line
@@ -127,22 +127,25 @@ $(document).ready(() => {
     const zipCode = parseInt($("#zip").val());
     const radius = $("#radius").val();
     $("#map").show();
+
+   
     (async () => {
       
       let arr = [];
       let mapApi = new MapApi();
-      let response = await mapApi.getLocation(zipCode, radius, keyword)
-      // console.log("this is the real?", response);
+      let response = await mapApi.getLocation(zipCode, radius, keyword);
+       
       arr = response[0];
+      console.log("this is the real?", response);
       let myMap = initMap(response[1], response[2]);
       // $("#output").empty();
 
       arr.forEach( async (location)  => {
         let businessInfo = await mapApi.getLocationDetails(location.place_id);
         $("#results").append(displayList(businessInfo));
-       // console.log(location, "this is a location" );
+        console.log(location, "this is a location" );
         addMarker(location.geometry.location, myMap);
-      })
+      });
       $("#results").empty();
     })();
     $("#output").show();

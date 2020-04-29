@@ -20,6 +20,11 @@ body {
   font-family: 'Teko', sans-serif;
 }
 
+#enter {
+  width:50%;
+
+}
+
 #output {
   display: none;
   color: whitesmoke;
@@ -27,7 +32,6 @@ body {
 }
 #results {
   display: flex;
-
   flex-flow: row wrap;
   justify-content: space-evenly;
   align-items: center;
@@ -56,6 +60,10 @@ html, body {
 
 a {
   color: whitesmoke;
+}
+
+.title {
+  text-align: center;
 }
 
 
