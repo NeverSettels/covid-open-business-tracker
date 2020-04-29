@@ -28,7 +28,7 @@
           <li><a href="https://www.cdc.gov/">Center for Disease Control</a></li>
           <li><a href="https://govstatus.egov.com/ORUnemployment_COVID19">Oregon Unemployment for Workers affected by Covid 19</a></li>
           <li> <a href="https://www.oregonfoodbank.org/find-help/find-food/#jump">Food Assistance</a></li>
-          <li></li>
+          <li><a href="https://drive.google.com/file/d/1wPYUSr4E3f2wOv2k5kRzGBDNczV86E_c/view">Stress Release in times of Crisis</a></li>
         </ul>
         <button id="enter"type="button" class="btn btn-dark">Find Open Businesses Near You!</button>
       </div>
@@ -36,12 +36,15 @@
       <div id="user-info"> 
         <h1>Find local businesses that are open in Portland, Oregon during Covid 19.</h1>
         <form id="user-input" type="submit" class="form-group">
+          <!-- keyword input  -->
+          <input id="keyword" class="form-control" type="text" placeholder="keywords to search">
+          <br>
           <!-- user zip code  -->
           <input id= "zip" class= "form-control" type="number" placeholder="Enter Your Zip Code" required pattern="[0-4] {5}">
           <br>
           <!-- user return radius -->
-          <select class="form-control" id="miles">
-            <option value="0">Select Radius</option>
+          <select class="form-control" id="radius">
+            <option value="8046.72">Select Radius</option>
             <option value="8046.72">5 Miles</option>
             <option value="16093.4">10 Miles</option>
             <option value="24140.2">15 Miles</option>
@@ -54,7 +57,8 @@
       </div>
       <!-- API output results and map -->
       <div id="output">
-        <h1 id="search">Search results</h1>
+        <h1>Search results</h1>
+        <h5>*This information is dependent on business owners updating their Google listing on operational status. We do recommend calling before patronizing a business listed in this search</h5>
         <div id="map"></div>
       </div>
     </div>

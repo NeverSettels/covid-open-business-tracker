@@ -1,7 +1,9 @@
 export class MapApi {
-  async getBuisnesses() {
+  async getBuisnesses(keyword, radius) {
     try {
-      let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=40233&key=AIzaSyCSbUg4uB4qOCYnlMNg25JkcZcs8O4si0I`);
+      console.log('keyword',keyword,'radius',radius);
+      
+      let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=${radius}&keyword=${keyword}&key=AIzaSyCSbUg4uB4qOCYnlMNg25JkcZcs8O4si0I&opennow`);
       let jsonifiedResponse;
       let openResults = [];
       let closedResults = [];
@@ -10,7 +12,7 @@ export class MapApi {
         //console.log(jsonifiedResponse);
         jsonifiedResponse.results.forEach(result => {
           if (result.business_status === "OPERATIONAL" && result.opening_hours) {
-            openResults.push(result)
+            openResults.push(result);
           } else {
             closedResults.push(result);
           }
@@ -28,7 +30,7 @@ export class MapApi {
 
   async nextPage(token) {
     try {
-      let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=40233&type=pharmacy&pagetoken=${token}&key=AIzaSyCSbUg4uB4qOCYnlMNg25JkcZcs8O4si0I`
+      let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.523064,-122.676483&radius=40233&type=pharmacy&pagetoken=${token}&key=AIzaSyCSbUg4uB4qOCYnlMNg25JkcZcs8O4si0I`;
       console.log(token);
       let response = await fetch(url);
       let jsonifiedResponse;
@@ -36,11 +38,11 @@ export class MapApi {
       console.log(response);
 
       if (response.ok && response.status == 200) {
-        jsonifiedResponse = await response.json()
+        jsonifiedResponse = await response.json();
         jsonifiedResponse.results.forEach(result => {
           if (result.business_status === "OPERATIONAL" && result.opening_hours) {
             console.log(result);
-            arr.push(result)
+            arr.push(result);
           }
         });
       } else {
