@@ -1,6 +1,5 @@
 export class MapApi {
-
-  async getBuisnesses(lng, lat, radius) {
+  async getBusinesses(lng, lat, radius) {
     try {
       let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&key=${process.env.API_KEY}&opennow`
       let response = await fetch(url);
@@ -32,7 +31,7 @@ export class MapApi {
       if (response.ok && response.status == 200) {
         jsonifiedResponse = await response.json();
         let { geometry: { location: { lng, lat } } } = jsonifiedResponse.results[0]
-        const search = await this.getBuisnesses(lng, lat, radius);
+        const search = await this.getBusinesses(lng, lat, radius);
         console.log("we'll see", search);
         return search;
       } else {
