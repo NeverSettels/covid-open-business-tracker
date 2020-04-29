@@ -18,13 +18,13 @@ window.initMap = function () {
   let portland = { lat: 45.5051, lng: -122.6750 };
   // eslint-disable-next-line
   let map = new google.maps.Map(document.getElementById('map'), { zoom: 10, center: portland });
-  return map;
+  return map
 };
-function initMap() {
-  let portland = { lat: 45.5051, lng: -122.6750 };
+function initMap(lat, lng) {
+  let location = { lat, lng };
   // eslint-disable-next-line
-  let map = new google.maps.Map(document.getElementById('map'), { zoom: 10, center: portland });
-  return map;
+  let map = new google.maps.Map(document.getElementById('map'), { zoom: 11, center: location });
+  return map
 }
 function addMarker(position, map) {
   // eslint-disable-next-line
@@ -42,31 +42,69 @@ $(document).ready(() => {
     $("#safety").hide();
   });
 
-  
   // code for user to "submit" form PSEUDOCODE
   $("#user-input").submit(function (event) {
     event.preventDefault();
     const keyword = $("#keyword").val();
     const zipCode = parseInt($("#zip").val());
-    const radius = $("#radius").val()
-    let arr = [];
+    const radius = $("#radius").val();
+
     (async () => {
-      console.log('keyword', keyword, 'radius', radius);
+      let arr = [];
       let mapApi = new MapApi();
-      const response = await mapApi.getBuisnesses(keyword,radius );
-      arr = response;
-      let myMap = initMap();
+      let response = await mapApi.getLocation(zipCode, radius, keyword)
+      console.log("this is the real?", response);
+
+      arr = response[0];
+      let myMap = initMap(response[1], response[2]);
       arr.forEach(location => {
         $("#output").append(`<div class="text-center">${displayList(location)}</div>`);
         console.log(location);
         addMarker(location.geometry.location, myMap);
-      });
-      $("#output").show();
+      })
     })();
+    $("#output").show();
   });
+  function displayList(location) {
+    const printDisplay = `${location.name}`;
+    console.log (location);
+    return printDisplay;
+  }
 });
-function displayList(location) {
-  const printDisplay = `${location.name}`;
-  return printDisplay;
-  console.log (location);
-}
+
+
+// let result = getBusinesses(zipCode, miles);
+      // result list of 25 in an array: 
+      // name path: results[0].name 
+      // address path: results[0].vicinity
+      // phone number path: ?? do we need to include the phone number as a param in our API call?
+      // pin location for map option path: results[0].geometry.location.lat & results[0].geometry.lng 
+      // place id location for map: results[0].place_id
+      
+///
+  // $("#user-input").submit(function (event) {
+  //   //(async () => {
+  //   event.preventDefault();
+  //   const zipCode = parseInt($("#zip").val());
+  //   const miles = parseInt($("#miles").val());
+  //   (async () => {
+  //     let arr = [];
+  //     let mapApi = new MapApi();
+  //     let response = await mapApi.getLocation(zipCode, miles)
+  //     console.log("this is the real?", response);
+
+  //     arr = response[0];
+  //     let myMap = initMap(response[1], response[2]);
+  //     arr.forEach(location => {
+  //       $("#output").append(`<div class="text-center">${displayList(location)}</div>`);
+  //       console.log(location);
+  //       addMarker(location.geometry.location, myMap);
+  //     })
+  //   })();
+
+
+
+  //   //addMarker(45.505, -122.2354, myMap);
+  //   $("#output").show();
+  //   // })();
+  // });
