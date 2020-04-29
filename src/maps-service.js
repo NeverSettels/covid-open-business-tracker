@@ -31,7 +31,6 @@ export class MapApi {
         jsonifiedResponse = await response.json();
         let { geometry: { location: { lng, lat } } } = jsonifiedResponse.results[0]
         const search = await this.getBusinesses(lng, lat, radius, keyword);
-        console.log("we'll see", search);
         return search;
       } else {
         jsonifiedResponse = false;
@@ -67,8 +66,26 @@ export class MapApi {
       return error;
     }
   }
-}
 
+  async getLocationDetails(id) {
+    try {
+      let url = `https://maps.googleapis.com/maps/api/place/details/json?parameters&place_id=${id}&key=AIzaSyCSbUg4uB4qOCYnlMNg25JkcZcs8O4si0I`
+      let response = await fetch(url);
+      let jsonifiedResponse;
+      if (response.ok && response.status == 200) {
+        jsonifiedResponse = await response.json();
+        console.log(jsonifiedResponse, "this worked yo");
+      } else {
+        jsonifiedResponse = false;
+      }
+      return jsonifiedResponse;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+}
+   
 
 
 

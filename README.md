@@ -23,16 +23,13 @@ or enjoy it at [Netlify] (netlify site here)
 
 ## **Behaviors**
 
-1. Allows user to input their zipcode []
-2. Allows user to see businesses that are currently open []
-3. Allows user to see a map/list of businesses that are open []
+1. Allows user to input their zipcode and Google Geocode API converts to lat/lng to display results based off of zip [X]
+2. Allows user to see businesses that are currently open [X]
+3. Allows user to see a map/list of businesses that are open [X]
+4. Allows the user to select a type "pharmacy", "restraunts", "liquor-stores", "cannibis shop" (drop-down) 
+5. Allows user to type a more specific "keyword" into a form for results for the getBusinesses() API call 
 
 ## **Stretch Goals**
-
-
-- Geocoding getting that API working 
-- Allowing the user to select a type "pharmacy", "restraunts", "liquor-stores", "cannibis shop" (drop-down)
-- Allowing the user to type a more specific keyword into a form for results for the getBusinesses() API call 
 - List of things that are displayed to user: name, address, phone number. 
 - Icons display on map pin? 
 - Click function to zoom into map location based off user selection (init map function within click function)

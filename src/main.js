@@ -48,26 +48,31 @@ $(document).ready(() => {
     const keyword = $("#keyword").val();
     const zipCode = parseInt($("#zip").val());
     const radius = $("#radius").val();
-
+   
     (async () => {
       let arr = [];
+      
       let mapApi = new MapApi();
       let response = await mapApi.getLocation(zipCode, radius, keyword)
       console.log("this is the real?", response);
 
       arr = response[0];
       let myMap = initMap(response[1], response[2]);
-      arr.forEach(location => {
-        $("#output").append(`<div class="text-center">${displayList(location)}</div>`);
-        console.log(location);
+      
+      arr.forEach( async (location)  => {
+        let businessInfo = await mapApi.getLocationDetails(location.place_id);
+        $("#output").append(`<div class="text-center">${displayList(businessInfo)}</div>`);
+       // console.log(location, "this is a location" );
         addMarker(location.geometry.location, myMap);
       })
     })();
     $("#output").show();
   });
-  function displayList(location) {
-    const printDisplay = `${location.name}`;
-    console.log (location);
+  function displayList(businessInfo) {
+    console.log("info",businessInfo.name);
+    
+    let { result: {name, formatted_address, formatted_phone_number}} = businessInfo;
+    let printDisplay = `<b>${name}</b> ${formatted_address} ${formatted_phone_number}`;
     return printDisplay;
   }
 });
