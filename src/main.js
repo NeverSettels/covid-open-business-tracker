@@ -1,59 +1,84 @@
+// Google API KEY = AIzaSyCSbUg4uB4qOCYnlMNg25JkcZcs8O4si0I
+
 import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
-import { MapApi } from './maps-service-service';
+import { MapApi } from './maps-service';
 
-const sampleResponse = {
-  "total": 8228,
-  "businesses": [
-    {
-      "rating": 4,
-      "price": "$",
-      "phone": "+14152520800",
-      "id": "E8RJkjfdcwgtyoPMjQ_Olg",
-      "alias": "four-barrel-coffee-san-francisco",
-      "is_closed": false,
-      "categories": [
-        {
-          "alias": "coffee",
-          "title": "Coffee & Tea"
-        }
-      ],
-      "review_count": 1738,
-      "name": "Four Barrel Coffee",
-      "url": "https://www.yelp.com/biz/four-barrel-coffee-san-francisco",
-      "coordinates": {
-        "latitude": 37.7670169511878,
-        "longitude": -122.42184275
-      },
-      "image_url": "http://s3-media2.fl.yelpcdn.com/bphoto/MmgtASP3l_t4tPCL1iAsCg/o.jpg",
-      "location": {
-        "city": "San Francisco",
-        "country": "US",
-        "address2": "",
-        "address3": "",
-        "state": "CA",
-        "address1": "375 Valencia St",
-        "zip_code": "94103"
-      },
-      "distance": 1604.23,
-      "transactions": ["pickup", "delivery"]
-    },
-    // ...
-  ],
-  "region": {
-    "center": {
-      "latitude": 37.767413217936834,
-      "longitude": -122.42820739746094
-    }
-  }
+
+// Create the script tag, set the appropriate attributes
+let script = document.createElement('script');
+script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCSbUg4uB4qOCYnlMNg25JkcZcs8O4si0I&callback=initMap';
+script.defer = true;
+script.async = true;
+
+// Attach your callback function to the `window` object
+window.initMap = function () {
+  let portland = { lat: 45.5051, lng: -122.6750 };
+  // eslint-disable-next-line
+  let map = new google.maps.Map(document.getElementById('map'), { zoom: 10, center: portland });
+  return map
+};
+function initMap(lat, lng) {
+  let location = { lat, lng };
+  // eslint-disable-next-line
+  let map = new google.maps.Map(document.getElementById('map'), { zoom: 11, center: location });
+  return map
+}
+function addMarker(position, map) {
+  // eslint-disable-next-line
+  let marker = new google.maps.Marker({ position: position, map: map });
+
 }
 
+
+// Append the 'script' element to 'head'
+document.head.appendChild(script);
+
+// function initMap() {
+
+// }
 $(document).ready(() => {
-  (async () => {
-    let mapApi = new MapApi();
-    const response = await mapApi.getBuisnesses()
-    console.log(response);
-  })()
+  // Button for Landing Page
+  $("#enter").click(function () {
+    $("#user-info").show();
+    $("#safety").hide();
+  });
+
+  $("#user-input").submit(function (event) {
+    //(async () => {
+    event.preventDefault();
+    const zipCode = parseInt($("#zip").val());
+    const miles = parseInt($("#miles").val());
+    (async () => {
+      let arr = [];
+      let mapApi = new MapApi();
+      let response = await mapApi.getLocation(zipCode, miles)
+      console.log("this is the real?", response);
+
+      arr = response[0];
+      let myMap = initMap(response[1], response[2]);
+      arr.forEach(location => {
+        console.log(location.geometry.location);
+        addMarker(location.geometry.location, myMap);
+        //$("#results").append(html)
+      })
+    })();
+
+
+
+    //addMarker(45.505, -122.2354, myMap);
+    $("#output").show();
+    // })();
+  });
 });
+
+
+// let result = getBusinesses(zipCode, miles);
+      // result list of 25 in an array: 
+      // name path: results[0].name 
+      // address path: results[0].vicinity
+      // phone number path: ?? do we need to include the phone number as a param in our API call?
+      // pin location for map option path: results[0].geometry.location.lat & results[0].geometry.lng 
+      // place id location for map: results[0].place_id
