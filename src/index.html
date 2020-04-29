@@ -12,32 +12,36 @@
     <div class="container">
       <!-- Landing Page w/ Safety Info -->
       <div id="safety">
-        <h1>Stay safe in Portland, Oregon during Covid 19.</h1>
-        <h3>Shopping Safety Tips</h3>
-        <ul>
-          <li>Wear a mask</li>
-          <li>Shop smart and early</li>
-          <li>Bring disinfectant wipes and sanitizer</li>
-          <li>Keep your distance</li>
-          <li>Checking out: use a credit card or cash app to pay. Give you cashier and bagger space. </li>
-          <li>Unpack and disinfect. Wash bags after use. </li>
-          <li>Order online if possible.</li>
-        </ul>
-        <h3>Links and Resources</h3>
-        <ul>
-          <li><a href="https://www.cdc.gov/">Center for Disease Control</a></li>
-          <li><a href="https://govstatus.egov.com/ORUnemployment_COVID19">Oregon Unemployment for Workers affected by Covid 19</a></li>
-          <li> <a href="https://www.oregonfoodbank.org/find-help/find-food/#jump">Food Assistance</a></li>
-          <li><a href="https://drive.google.com/file/d/1wPYUSr4E3f2wOv2k5kRzGBDNczV86E_c/view">Stress Release in times of Crisis</a></li>
-        </ul>
-        <button id="enter"type="button" class="btn btn-dark">Find Open Businesses Near You!</button>
+        <h1>Stay safe during Covid 19.</h1>
+        <div class="row">
+          <div class="col">
+            <h3>Shopping Safety Tips</h3>
+            <ul>
+              <li>Wear a mask.</li>
+              <li>Shop smart and early.</li>
+              <li>Bring disinfectant wipes and sanitizer.</li>
+              <li>Keep your distance.</li>
+              <li>Checking out: use a credit card or cash app to pay. Give you cashier and bagger space. </li>
+              <li>Unpack and disinfect. Wash bags after use. </li>
+              <li>Order online if possible.</li>
+            </ul>
+          </div>
+          <div class="col">
+          <h3>Links and Resources</h3>
+            <ul>
+              <li><a href="https://www.cdc.gov/">Center for Disease Control</a></li>
+              <li><a href="https://drive.google.com/file/d/1wPYUSr4E3f2wOv2k5kRzGBDNczV86E_c/view">Stress Release in times of Crisis</a></li>
+            </ul>
+            <button id="enter"type="button" class="btn btn-dark">Find Open Businesses Near You!</button>
+          </div>
+        </div>
       </div>
       <!-- Info from user to input zip & radius -->
       <div id="user-info"> 
-        <h1>Find local businesses that are open in Portland, Oregon during Covid 19.</h1>
+        <h1>Find local businesses in your area that are open during Covid 19.</h1>
         <form id="user-input" type="submit" class="form-group">
           <!-- keyword input  -->
-          <input id="keyword" class="form-control" type="text" placeholder="keywords to search">
+          <input id="keyword" class="form-control" type="text" placeholder="Business type">
           <br>
           <!-- user zip code  -->
           <input id= "zip" class= "form-control" type="number" placeholder="Enter Your Zip Code" required pattern="[0-4] {5}">
@@ -55,11 +59,13 @@
           <button type="submit" class="btn btn-dark">Submit</button>
         </form>
       </div>
+     
       <!-- API output results and map -->
       <div id="output">
         <h1>Search results</h1>
         <h5>*This information is dependent on business owners updating their Google listing on operational status. We do recommend calling before patronizing a business listed in this search</h5>
         <div id="map"></div>
+        <div id="results"></div>
       </div>
     </div>
   </body>

@@ -17,13 +17,92 @@ script.async = true;
 window.initMap = function () {
   let portland = { lat: 45.5051, lng: -122.6750 };
   // eslint-disable-next-line
-  let map = new google.maps.Map(document.getElementById('map'), { zoom: 10, center: portland });
+  let map = new google.maps.Map(document.getElementById('map'), { zoom: 10, center: portland  });
   return map
 };
 function initMap(lat, lng) {
   let location = { lat, lng };
   // eslint-disable-next-line
-  let map = new google.maps.Map(document.getElementById('map'), { zoom: 11, center: location });
+  let map = new google.maps.Map(document.getElementById('map'), { zoom: 11, center: location,  styles: [
+    {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+    {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+    {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+    {
+      featureType: 'administrative.locality',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#d59563'}]
+    },
+    {
+      featureType: 'poi',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#d59563'}]
+    },
+    {
+      featureType: 'poi.park',
+      elementType: 'geometry',
+      stylers: [{color: '#263c3f'}]
+    },
+    {
+      featureType: 'poi.park',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#6b9a76'}]
+    },
+    {
+      featureType: 'road',
+      elementType: 'geometry',
+      stylers: [{color: '#38414e'}]
+    },
+    {
+      featureType: 'road',
+      elementType: 'geometry.stroke',
+      stylers: [{color: '#212a37'}]
+    },
+    {
+      featureType: 'road',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#9ca5b3'}]
+    },
+    {
+      featureType: 'road.highway',
+      elementType: 'geometry',
+      stylers: [{color: '#746855'}]
+    },
+    {
+      featureType: 'road.highway',
+      elementType: 'geometry.stroke',
+      stylers: [{color: '#1f2835'}]
+    },
+    {
+      featureType: 'road.highway',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#f3d19c'}]
+    },
+    {
+      featureType: 'transit',
+      elementType: 'geometry',
+      stylers: [{color: '#2f3948'}]
+    },
+    {
+      featureType: 'transit.station',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#d59563'}]
+    },
+    {
+      featureType: 'water',
+      elementType: 'geometry',
+      stylers: [{color: '#17263c'}]
+    },
+    {
+      featureType: 'water',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#515c6d'}]
+    },
+    {
+      featureType: 'water',
+      elementType: 'labels.text.stroke',
+      stylers: [{color: '#17263c'}]
+    }
+  ] });
   return map
 }
 function addMarker(position, map) {
@@ -42,74 +121,40 @@ $(document).ready(() => {
     $("#safety").hide();
   });
 
-  // code for user to "submit" form PSEUDOCODE
   $("#user-input").submit(function (event) {
     event.preventDefault();
     const keyword = $("#keyword").val();
     const zipCode = parseInt($("#zip").val());
     const radius = $("#radius").val();
-   
+    $("#map").show();
     (async () => {
-      let arr = [];
       
+      let arr = [];
       let mapApi = new MapApi();
       let response = await mapApi.getLocation(zipCode, radius, keyword)
-      console.log("this is the real?", response);
-
+      // console.log("this is the real?", response);
       arr = response[0];
       let myMap = initMap(response[1], response[2]);
-      
+      // $("#output").empty();
+
       arr.forEach( async (location)  => {
         let businessInfo = await mapApi.getLocationDetails(location.place_id);
-        $("#output").append(`<div class="text-center">${displayList(businessInfo)}</div>`);
+        $("#results").append(displayList(businessInfo));
        // console.log(location, "this is a location" );
         addMarker(location.geometry.location, myMap);
       })
+      $("#results").empty();
     })();
     $("#output").show();
   });
   function displayList(businessInfo) {
-    console.log("info",businessInfo.name);
-    
     let { result: {name, formatted_address, formatted_phone_number}} = businessInfo;
-    let printDisplay = `<b>${name}</b> ${formatted_address} ${formatted_phone_number}`;
+    let printDisplay = `
+    <div class="info">
+    <h3>${name}</h3> 
+    <h5>${formatted_address} </h4>
+    <h4> <a href="tel:+${formatted_phone_number}">${formatted_phone_number}</a></h4>
+    </div>`;
     return printDisplay;
   }
 });
-
-
-// let result = getBusinesses(zipCode, miles);
-      // result list of 25 in an array: 
-      // name path: results[0].name 
-      // address path: results[0].vicinity
-      // phone number path: ?? do we need to include the phone number as a param in our API call?
-      // pin location for map option path: results[0].geometry.location.lat & results[0].geometry.lng 
-      // place id location for map: results[0].place_id
-      
-///
-  // $("#user-input").submit(function (event) {
-  //   //(async () => {
-  //   event.preventDefault();
-  //   const zipCode = parseInt($("#zip").val());
-  //   const miles = parseInt($("#miles").val());
-  //   (async () => {
-  //     let arr = [];
-  //     let mapApi = new MapApi();
-  //     let response = await mapApi.getLocation(zipCode, miles)
-  //     console.log("this is the real?", response);
-
-  //     arr = response[0];
-  //     let myMap = initMap(response[1], response[2]);
-  //     arr.forEach(location => {
-  //       $("#output").append(`<div class="text-center">${displayList(location)}</div>`);
-  //       console.log(location);
-  //       addMarker(location.geometry.location, myMap);
-  //     })
-  //   })();
-
-
-
-  //   //addMarker(45.505, -122.2354, myMap);
-  //   $("#output").show();
-  //   // })();
-  // });
