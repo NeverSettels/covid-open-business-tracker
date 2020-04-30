@@ -1,5 +1,5 @@
 .container {
-  padding: 30px;
+  padding: 20px;
   background: rgb(5,5,5);
   background: linear-gradient(0deg, rgba(5,5,5,1) 0%, rgba(15,15,15,1) 0%, rgba(114,185,199,1) 100%);
   border-radius: 8px;
@@ -60,33 +60,21 @@ html, body {
 }
 
 a {
-  color: whitesmoke;
+  color:#053C5E;
+}
+
+a:hover {
+  color: black;
 }
 
 .title {
+  text-align: left;
+  font-family: 'Bebas Neue';
+  font-size: 300%;
+  color: black;
+}
+
+#user-info h1{
   text-align: center;
 }
 
-
-/* @media only screen 
-and (min-device-width: 320px) 
-and (max-device-width: 480px)
-and (-webkit-min-device-pixel-ratio: 2) {
-  body { 
-    display: flex;
-    /* zoom: flex; */
-  /* }
-
-  h1 {
-    size: 10px;
-  }
-
-  #results { 
-    font-size: 12pt;
-  }
-
-  #map {
-    height: 50%;
-    width: 50%; 
-  }
-} */ 

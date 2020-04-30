@@ -127,7 +127,6 @@ function displayList(businessInfo) {
 document.head.appendChild(script);
 
 $(document).ready(() => {
-  // Button for Landing Page
   let markers = []
   $("#enter").click(function () {
     $("#user-info").show();
@@ -141,29 +140,26 @@ $(document).ready(() => {
     const radius = $("#radius").val();
     $("#map").show();
 
-   
     (async () => {
-      
       let arr = [];
       let mapApi = new MapApi();
       let response = await mapApi.getLocation(zipCode, radius, keyword);
-       
       arr = response[0];
-      console.log("this is the real?", response);
       let myMap = initMap(response[1], response[2]);
-      // $("#output").empty();
-
+      $("#results").empty();
+     
+      
+      if(arr.length > 0){
       arr.forEach( async (location)  => {
         let businessInfo = await mapApi.getLocationDetails(location.place_id);
         let marker = addMarker(location.geometry.location, myMap, location.name )
         markers.push(marker);
         $("#results").append(displayList(businessInfo));
       });
-      console.log(markers);
-      
-      $("#results").empty();
+    } else{
+        $("#results").html(`<h2> Sorry no results for ${keyword}, this business may have been impacted by COVID-19</h2>`)
+      }
     })();
     $("#output").show();
   });
-
 });
