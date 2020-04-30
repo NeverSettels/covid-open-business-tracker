@@ -17,94 +17,149 @@ script.async = true;
 window.initMap = function () {
   let portland = { lat: 45.5051, lng: -122.6750 };
   // eslint-disable-next-line
-  let map = new google.maps.Map(document.getElementById('map'), { zoom: 10, center: portland });
-  return map
+  let map = new google.maps.Map(document.getElementById('map'), { zoom: 10, center: portland  });
+  return map;
 };
 function initMap(lat, lng) {
   let location = { lat, lng };
   // eslint-disable-next-line
-  let map = new google.maps.Map(document.getElementById('map'), { zoom: 11, center: location });
-  return map
+  let map = new google.maps.Map(document.getElementById('map'), { zoom: 11, center: location,  styles: [
+    {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+    {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+    {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+    {
+      featureType: 'administrative.locality',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#d59563'}]
+    },
+    {
+      featureType: 'poi',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#d59563'}]
+    },
+    {
+      featureType: 'poi.park',
+      elementType: 'geometry',
+      stylers: [{color: '#263c3f'}]
+    },
+    {
+      featureType: 'poi.park',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#6b9a76'}]
+    },
+    {
+      featureType: 'road',
+      elementType: 'geometry',
+      stylers: [{color: '#38414e'}]
+    },
+    {
+      featureType: 'road',
+      elementType: 'geometry.stroke',
+      stylers: [{color: '#212a37'}]
+    },
+    {
+      featureType: 'road',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#9ca5b3'}]
+    },
+    {
+      featureType: 'road.highway',
+      elementType: 'geometry',
+      stylers: [{color: '#746855'}]
+    },
+    {
+      featureType: 'road.highway',
+      elementType: 'geometry.stroke',
+      stylers: [{color: '#1f2835'}]
+    },
+    {
+      featureType: 'road.highway',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#f3d19c'}]
+    },
+    {
+      featureType: 'transit',
+      elementType: 'geometry',
+      stylers: [{color: '#2f3948'}]
+    },
+    {
+      featureType: 'transit.station',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#d59563'}]
+    },
+    {
+      featureType: 'water',
+      elementType: 'geometry',
+      stylers: [{color: '#17263c'}]
+    },
+    {
+      featureType: 'water',
+      elementType: 'labels.text.fill',
+      stylers: [{color: '#515c6d'}]
+    },
+    {
+      featureType: 'water',
+      elementType: 'labels.text.stroke',
+      stylers: [{color: '#17263c'}]
+    }
+  ] });
+  return map;
 }
-function addMarker(position, map) {
+function addMarker(position, map, title) {
   // eslint-disable-next-line
-  let marker = new google.maps.Marker({ position: position, map: map });
+  let marker = new google.maps.Marker({ position: position, map: map, animation: google.maps.Animation.DROP, title: title });
+  return marker
 
+}
+
+function displayList(businessInfo) {
+  let { result: {name, formatted_address, formatted_phone_number}} = businessInfo;
+  let printDisplay = `
+  <div class="info">
+  <h3>${name}</h3> 
+  <h5>${formatted_address} </h4>
+  <h4> <a href="tel:+${formatted_phone_number}">${formatted_phone_number}</a></h4>
+  </div>`;
+  return printDisplay;
 }
 
 // Append the 'script' element to 'head'
 document.head.appendChild(script);
 
 $(document).ready(() => {
-  // Button for Landing Page
+  let markers = []
   $("#enter").click(function () {
     $("#user-info").show();
     $("#safety").hide();
   });
 
-  // code for user to "submit" form PSEUDOCODE
   $("#user-input").submit(function (event) {
     event.preventDefault();
     const keyword = $("#keyword").val();
     const zipCode = parseInt($("#zip").val());
     const radius = $("#radius").val();
+    $("#map").show();
 
     (async () => {
       let arr = [];
       let mapApi = new MapApi();
-      let response = await mapApi.getLocation(zipCode, radius, keyword)
-      console.log("this is the real?", response);
-
+      let response = await mapApi.getLocation(zipCode, radius, keyword);
       arr = response[0];
       let myMap = initMap(response[1], response[2]);
-      arr.forEach(location => {
-        $("#output").append(`<div class="text-center">${displayList(location)}</div>`);
-        console.log(location);
-        addMarker(location.geometry.location, myMap);
-      })
+      $("#results").empty();
+     
+      
+      if(arr.length > 0){
+      arr.forEach( async (location)  => {
+        let businessInfo = await mapApi.getLocationDetails(location.place_id);
+        let marker = addMarker(location.geometry.location, myMap, location.name )
+        markers.push(marker);
+        $("#results").append(displayList(businessInfo));
+      });
+    } else{
+        $("#results").html(`<h2> Sorry no results for ${keyword}, this business may have been impacted by COVID-19</h2>`)
+      }
     })();
     $("#output").show();
   });
-  function displayList(location) {
-    const printDisplay = `${location.name}`;
-    console.log (location);
-    return printDisplay;
-  }
 });
-
-
-// let result = getBusinesses(zipCode, miles);
-      // result list of 25 in an array: 
-      // name path: results[0].name 
-      // address path: results[0].vicinity
-      // phone number path: ?? do we need to include the phone number as a param in our API call?
-      // pin location for map option path: results[0].geometry.location.lat & results[0].geometry.lng 
-      // place id location for map: results[0].place_id
-      
-///
-  // $("#user-input").submit(function (event) {
-  //   //(async () => {
-  //   event.preventDefault();
-  //   const zipCode = parseInt($("#zip").val());
-  //   const miles = parseInt($("#miles").val());
-  //   (async () => {
-  //     let arr = [];
-  //     let mapApi = new MapApi();
-  //     let response = await mapApi.getLocation(zipCode, miles)
-  //     console.log("this is the real?", response);
-
-  //     arr = response[0];
-  //     let myMap = initMap(response[1], response[2]);
-  //     arr.forEach(location => {
-  //       $("#output").append(`<div class="text-center">${displayList(location)}</div>`);
-  //       console.log(location);
-  //       addMarker(location.geometry.location, myMap);
-  //     })
-  //   })();
-
-
-
-  //   //addMarker(45.505, -122.2354, myMap);
-  //   $("#output").show();
-  //   // })();
-  // });
