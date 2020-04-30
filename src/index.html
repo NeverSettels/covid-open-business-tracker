@@ -10,64 +10,71 @@
   </head>
   <body>
     <div class="container">
-      <!-- Landing Page w/ Safety Info -->
-      <div id="safety">
-        <h1 class="title">Stay safe during Covid 19.</h1>
-        <div class="row">
-          <div class="col">
-            <h3>Shopping Safety Tips</h3>
-            <ul>
-              <li>Wear a mask.</li>
-              <li>Shop smart and early.</li>
-              <li>Bring disinfectant wipes and sanitizer.</li>
-              <li>Keep your distance.</li>
-              <li>Checking out: use a credit card or cash app to pay. Give you cashier and bagger space. </li>
-              <li>Unpack and disinfect. Wash bags after use. </li>
-              <li>Order online if possible.</li>
-            </ul>
+      <div class="row">
+        <div class="col">
+          <!-- Landing Page w/ Safety Info -->
+          <div id="safety">
+            <h1 class="title">Stay safe during Covid 19.</h1>
+            <div class="row">
+                <div class="col">
+                  <h3>Shopping Safety Tips</h3>
+                  <ul>
+                    <li>Wear a mask.</li>
+                    <li>Shop smart and early.</li>
+                    <li>Bring disinfectant wipes and sanitizer.</li>
+                    <li>Keep your distance.</li>
+                    <li>Checking out: use a credit card or cash app to pay. Give you cashier and bagger space. </li>
+                    <li>Unpack and disinfect. Wash bags after use. </li>
+                    <li>Order online if possible.</li>
+                  </ul>
+                </div>
+                <div class="col">
+                  <h3>Links and Resources</h3>
+                  <ul>
+                    <li><a href="https://www.cdc.gov/">Center for Disease Control</a></li>
+                    <li><a href="https://drive.google.com/file/d/1wPYUSr4E3f2wOv2k5kRzGBDNczV86E_c/view">Stress Release in times of Crisis</a></li>
+                    <li><a href="https://actionnetwork.org/forms/dsa-covid-19-bulletin/"></a>DSA COVID-19 BULLETIN OPT-IN</li>
+                    <li><a href="https://resources.distributeaid.org/"></a>COVID-19 AID WORKERS GUIDE</li>
+                  </ul>
+                </div>
+            </div>
+            <button id="enter" type="button" class="btn btn-dark">Find Open Businesses Near You!</button>
           </div>
-          <div class="col">
-            <h3>Links and Resources</h3>
-            <ul>
-              <li><a href="https://www.cdc.gov/">Center for Disease Control</a></li>
-              <li><a href="https://drive.google.com/file/d/1wPYUSr4E3f2wOv2k5kRzGBDNczV86E_c/view">Stress Release in times of Crisis</a></li>
-              <li><a href="https://actionnetwork.org/forms/dsa-covid-19-bulletin/"></a>DSA COVID-19 BULLETIN OPT-IN</li>
-              <li><a href="https://resources.distributeaid.org/"></a>COVID-19 AID WORKERS GUIDE</li>
-            </ul>
+            <!-- Info from user to input zip & radius -->
+          <div class="row">
+            <div id="user-info"> 
+              <h1>Find local businesses in your area that are open during Covid 19.</h1>
+                <div class="col-md-4 offset-md-3">
+                  <form id="user-input" type="submit" class="form-group">
+                    <!-- keyword input  -->
+                    <input id="keyword" class="form-control" type="text" placeholder="Business type">
+                    <br>
+                    <!-- user zip code  -->
+                    <input id= "zip" class= "form-control" type="number" placeholder="Enter Your Zip Code" required pattern="[0-4] {5}">
+                    <br>
+                    <!-- user return radius -->
+                    <select class="form-control" id="radius">
+                      <option value="8046.72">Select Radius</option>
+                      <option value="8046.72">5 Miles</option>
+                      <option value="16093.4">10 Miles</option>
+                      <option value="24140.2">15 Miles</option>
+                      <option value="32186.9">20 Miles</option>
+                      <option value="40233.6">25 Miles</option>
+                    </select>
+                    <br>
+                    <button type="submit" class="btn btn-dark">Submit</button>
+                  </form>
+                </div>
+            </div>
+          </div>
+          <!-- API output results and map -->
+          <div id="output">
+            <h1>Search results</h1>
+            <h5>*This information is dependent on business owners updating their Google listing on operational status. We do recommend calling before patronizing a business listed in this search</h5>
+            <div id="map"></div>
+            <div id="results"></div>
           </div>
         </div>
-        <button id="enter" type="button" class="btn btn-dark">Find Open Businesses Near You!</button>
-      </div>
-      <!-- Info from user to input zip & radius -->
-      <div id="user-info"> 
-        <h1>Find local businesses in your area that are open during Covid 19.</h1>
-        <form id="user-input" type="submit" class="form-group">
-          <!-- keyword input  -->
-          <input id="keyword" class="form-control" type="text" placeholder="Business type">
-          <br>
-          <!-- user zip code  -->
-          <input id= "zip" class= "form-control" type="number" placeholder="Enter Your Zip Code" required pattern="[0-4] {5}">
-          <br>
-          <!-- user return radius -->
-          <select class="form-control" id="radius">
-            <option value="8046.72">Select Radius</option>
-            <option value="8046.72">5 Miles</option>
-            <option value="16093.4">10 Miles</option>
-            <option value="24140.2">15 Miles</option>
-            <option value="32186.9">20 Miles</option>
-            <option value="40233.6">25 Miles</option>
-          </select>
-          <br>
-          <button type="submit" class="btn btn-dark">Submit</button>
-        </form>
-      </div>
-     
-      <!-- API output results and map -->
-      <div id="output">
-        <h1>Search results</h1>
-        <h5>*This information is dependent on business owners updating their Google listing on operational status. We do recommend calling before patronizing a business listed in this search</h5>
-        <div id="map"></div>
-        <div id="results"></div>
       </div>
     </div>
   </body>

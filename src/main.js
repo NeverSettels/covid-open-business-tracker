@@ -105,10 +105,22 @@ function initMap(lat, lng) {
   ] });
   return map;
 }
-function addMarker(position, map) {
+function addMarker(position, map, title) {
   // eslint-disable-next-line
-  let marker = new google.maps.Marker({ position: position, map: map });
+  let marker = new google.maps.Marker({ position: position, map: map, animation: google.maps.Animation.DROP, title: title });
+  return marker
 
+}
+
+function displayList(businessInfo) {
+  let { result: {name, formatted_address, formatted_phone_number}} = businessInfo;
+  let printDisplay = `
+  <div class="info">
+  <h3>${name}</h3> 
+  <h5>${formatted_address} </h4>
+  <h4> <a href="tel:+${formatted_phone_number}">${formatted_phone_number}</a></h4>
+  </div>`;
+  return printDisplay;
 }
 
 // Append the 'script' element to 'head'
@@ -116,6 +128,7 @@ document.head.appendChild(script);
 
 $(document).ready(() => {
   // Button for Landing Page
+  let markers = []
   $("#enter").click(function () {
     $("#user-info").show();
     $("#safety").hide();
@@ -142,22 +155,15 @@ $(document).ready(() => {
 
       arr.forEach( async (location)  => {
         let businessInfo = await mapApi.getLocationDetails(location.place_id);
+        let marker = addMarker(location.geometry.location, myMap, location.name )
+        markers.push(marker);
         $("#results").append(displayList(businessInfo));
-        console.log(location, "this is a location" );
-        addMarker(location.geometry.location, myMap);
       });
+      console.log(markers);
+      
       $("#results").empty();
     })();
     $("#output").show();
   });
-  function displayList(businessInfo) {
-    let { result: {name, formatted_address, formatted_phone_number}} = businessInfo;
-    let printDisplay = `
-    <div class="info">
-    <h3>${name}</h3> 
-    <h5>${formatted_address} </h4>
-    <h4> <a href="tel:+${formatted_phone_number}">${formatted_phone_number}</a></h4>
-    </div>`;
-    return printDisplay;
-  }
+
 });

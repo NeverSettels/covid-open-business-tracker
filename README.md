@@ -1,4 +1,4 @@
-# APP TITLE GOES HERE  
+# Covid Business Tracker  
 
 #### _Object-Oriented Programming_ - _4/27/2020_
 
@@ -23,17 +23,16 @@ or enjoy it at [Netlify] (netlify site here)
 
 ## **Behaviors**
 
-1. Allows user to input their zipcode and Google Geocode API converts to lat/lng to display results based off of zip [X]
-2. Allows user to see businesses that are currently open [X]
-3. Allows user to see a map/list of businesses that are open [X]
-4. Allows the user to select a type "pharmacy", "restraunts", "liquor-stores", "cannibis shop" (drop-down) 
-5. Allows user to type a more specific "keyword" into a form for results for the getBusinesses() API call 
+1. Allows user to input their zipcode.
+2. Allows user to type a more specific "keyword".
+3. Allows user to input a radius. 
+4. Allows user to see businesses that are currently open in their area in the form of a list.
+5. Allows user to see businesses that are open on a map. 
+6. Allows user to click on a map pin or business and cross reference. 
 
 ## **Stretch Goals**
-- List of things that are displayed to user: name, address, phone number. 
-- Icons display on map pin? 
-- Click function to zoom into map location based off user selection (init map function within click function)
-- Have display on Netlify & mobile device media query 
+
+- Have display on Netlify & mobile device media query
 - Practice our presentation
 
 
@@ -41,7 +40,8 @@ or enjoy it at [Netlify] (netlify site here)
 
 ## **Known Bugs**
 
-There are no known bugs at this time.
+- Cors dependent?
+- Location accuracy dependent on assumption that business owners have updated their Google listings.
 
 ## **Support and contact details**
 
